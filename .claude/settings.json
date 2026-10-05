@@ -8,7 +8,8 @@
       "Bash(PORT=3999 timeout -s INT 8 node dist/main.js)",
       "Bash(echo \"exit: $?\")",
       "Bash(bunx tsc *)",
-      "Bash(echo \"tsc exit=$?\")"
+      "Bash(echo \"tsc exit=$?\")",
+      "Bash(npx tsc *)"
     ]
   }
 }
