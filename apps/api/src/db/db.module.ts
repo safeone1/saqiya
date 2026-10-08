@@ -7,15 +7,12 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Pool } from 'pg';
-import { createAuth, type Auth } from '../lib/auth';
-import { createDb, type Db } from '../prisma/db';
+import { createDb, type Db } from '../prisma/db.js';
 
 export const PG_POOL = Symbol('PG_POOL');
 export const DB = Symbol('DB');
-export const AUTH = Symbol('AUTH');
 export const InjectDb = () => Inject(DB);
-export const InjectAuth = () => Inject(AUTH);
-export type { Auth, Db };
+export type { Db };
 
 @Injectable()
 class DbLifecycle implements OnApplicationShutdown {
@@ -44,14 +41,8 @@ class DbLifecycle implements OnApplicationShutdown {
       inject: [PG_POOL],
       useFactory: (pool: Pool): Db => createDb(pool),
     },
-    {
-      provide: AUTH,
-      inject: [PG_POOL, ConfigService],
-      useFactory: (pool: Pool, config: ConfigService): Auth =>
-        createAuth(pool, config.get<string>('BETTER_AUTH_URL') ?? 'http://localhost:3000'),
-    },
     DbLifecycle,
   ],
-  exports: [DB, AUTH],
+  exports: [PG_POOL, DB],
 })
 export class DbModule {}

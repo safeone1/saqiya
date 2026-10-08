@@ -7,6 +7,12 @@ export const createAuth = (pool: Pool, baseURL: string) =>
   betterAuth({
     database: pool,
     baseURL,
+    socialProviders:{
+      github: {
+        clientId: process.env.GITHUB_CLIENT_ID!,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET!
+      }
+    }
   });
 
 export type Auth = ReturnType<typeof createAuth>;

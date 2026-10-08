@@ -1,3 +1,4 @@
+// use prisma-8
 
 model User {
   id            String    @id
@@ -5,8 +6,8 @@ model User {
   email         String
   emailVerified Boolean   @default(false)
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     Timestamptz  @default(now())
+  updatedAt     temporal.updatedAt()
   sessions      Session[]
   accounts      Account[]
 
@@ -16,10 +17,10 @@ model User {
 
 model Session {
   id        String   @id
-  expiresAt DateTime
+  expiresAt Timestamptz
   token     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt Timestamptz @default(now())
+  updatedAt temporal.updatedAt()
   ipAddress String?
   userAgent String?
   userId    String
@@ -39,12 +40,12 @@ model Account {
   accessToken           String?
   refreshToken          String?
   idToken               String?
-  accessTokenExpiresAt  DateTime?
-  refreshTokenExpiresAt DateTime?
+  accessTokenExpiresAt  Timestamptz?
+  refreshTokenExpiresAt Timestamptz?
   scope                 String?
   password              String?
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
+  createdAt             Timestamptz  @default(now())
+  updatedAt             temporal.updatedAt()
 
   @@index([userId])
   @@map("account")
@@ -54,9 +55,9 @@ model Verification {
   id         String   @id
   identifier String
   value      String
-  expiresAt  DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  expiresAt  Timestamptz
+  createdAt  Timestamptz @default(now())
+  updatedAt  temporal.updatedAt()
 
   @@index([identifier])
   @@map("verification")

@@ -31,6 +31,7 @@
     "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
     "@prisma/orm-postgres": "8.0.0-rc.13",
+    "@thallesp/nestjs-better-auth": "^2.8.0",
     "better-auth": "^1.7.7",
     "dotenv": "^18.0.5",
     "pg": "^8.23.1",
